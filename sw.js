@@ -1,4 +1,4 @@
-const cacheName = 'v1';
+const cacheName = 'temp';
 const cacheFiles = [
     '/',
     '/index.html',
@@ -24,7 +24,7 @@ const cacheFiles = [
 
 self.addEventListener('install', function(e) {
     e.waitUntil(
-        caches.open('v1').then(function(cache) {
+        caches.open('temp').then(function(cache) {
             return cache.addAll(cacheFiles);
         })
     );
@@ -43,7 +43,7 @@ self.addEventListener('fetch', function(e) {
                 return fetch(e.request)
                     .then(function(response) {
                         const responseClone = response.clone();
-                        caches.open('v1').then(function(cache) {
+                        caches.open('temp').then(function(cache) {
                             cache.put(e.request, responseClone);
                         })
                         return response;
